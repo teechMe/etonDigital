@@ -1,56 +1,42 @@
-# Node.js
-# Build a general Node.js project with npm.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 resources:
   repositories:
-    - repository: etonDigital  # Your reference name for this repo
+    - repository: etonDigital
       type: github
-      name: teechMe/etonDigital  # GitHub format: 'owner/repo'
-      endpoint: 'GitHubServiceConnection'  # Name of your GitHub service connection
-      ref: refs/heads/master  # Default branch to clone
+      name: teechMe/etonDigital
+      endpoint: 'GitHubServiceConnection'
+      ref: refs/heads/master
 
 pool:
   name: self-hosted
 
 jobs:
- - job: RunTests
-   displayName: 'Run tests'
-   strategy: 
-      maxParallel: 1
-   steps:
+- job: RunTests
+  displayName: 'Run Cypress Tests'
+  steps:
     - task: NodeTool@0
       inputs:
         versionSpec: '20.x'
       displayName: 'Install Node.js'
 
-    # Install dependencies including Cypress
     - script: npm install
       displayName: 'Install dependencies'
 
-    # Verify Cypress is installed
     - script: npx cypress verify
       displayName: 'Verify Cypress Installation'
-      
-    # Run Cypress with both reporters
-    - script: npm run test:full
-      displayName: 'Run Tests with'
-      continueOnError: true  # Continue even if tests fail
 
-    # Publish to Test Plans > Runs
+    - script: |
+        mkdir cypress\results
+        npx cypress run ^
+          --reporter mocha-junit-reporter ^
+          --reporter-options "mochaFile=cypress/results/results.xml" ^
+          --spec "cypress/e2e/*.cy.js"
+      displayName: 'Run Cypress Tests'
+      continueOnError: true
+
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: 'cypress\results\*.xml'
-        testRunTitle: 'Cypress Test Results - $(Build.BuildNumber)'
+        testRunTitle: 'Cypress Tests - $(Build.BuildNumber)'
       condition: succeededOrFailed()
       displayName: 'Publish Test Results'
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathtoPublish: 'cypress/reports/html'
-        artifactName: 'CypressHTMLReport'
-      condition: succeededOrFailed()
-      displayName: 'Publish HTML Report'
-      enabled: true

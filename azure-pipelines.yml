@@ -9,7 +9,7 @@ resources:
       type: github
       name: teechMe/etonDigital  # GitHub format: 'owner/repo'
       endpoint: 'GitHubServiceConnection'  # Name of your GitHub service connection
-      ref: 'featureRefactor'  # Default branch to clone
+      ref: refs/heads/featureRefactor  # Default branch to clone
 
 pool:
   name: self-hosted
@@ -20,12 +20,18 @@ jobs:
    strategy: 
       maxParallel: 1
    steps:
-    - script: git ls-remote -h https://github.com/teechMe/etonDigital
-      displayName: 'Verify repo access'
-    - checkout: etonDigital
-      clean: true
-      fetchDepth: 0
-      lfs: false  # Disable Git LFS if not needed
+ #   - checkout: etonDigital
+ #     clean: true
+ #     fetchDepth: 1
+ #     persistCredentials: true  # Important for self-hosted agents
+ #     submodules: false
+    - script: |
+        rm -rf $(Build.SourcesDirectory)
+        git clone --depth 1 --branch featureRefactor https://github.com/teechMe/etonDigital $(Build.SourcesDirectory)
+      displayName: 'Manual git checkout'
+      env:
+        GIT_TERMINAL_PROMPT: 0
+
     - task: NodeTool@0
       inputs:
         versionSpec: '20.x'

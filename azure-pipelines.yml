@@ -42,7 +42,7 @@ jobs:
 
     # Run Cypress with both reporters
     - script: npm run test:full
-      displayName: 'Run Cypress Tests'
+      displayName: 'Run Tests with Dual Reporting'
       continueOnError: true  # Continue even if tests fail
 
 
@@ -67,7 +67,7 @@ jobs:
 
     - task: PublishBuildArtifacts@1
       inputs:
-        pathtoPublish: 'cypress/reports'
+        pathtoPublish: 'cypress/reports/html'
         artifactName: 'CypressHTMLReport'
       condition: succeededOrFailed()
       displayName: 'Publish HTML Report'

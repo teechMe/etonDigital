@@ -15,12 +15,12 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
   },
-  "scripts": {
-    "test": "cypress run --reporter mocha-junit-reporter --reporter-options mochaFile=cypress/results/junit/results.xml",
-    "test:ci": "npm run test -- --headless --browser chrome",
-    "test:dev": "cypress open",
-    "test:html": "cypress run --reporter cypress-mochawesome-reporter",
-    "test:full": "npm run test:ci && npm run test:html",
-    "report": "npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/output.json && npx marge cypress/reports/mochawesome/output.json --reportDir cypress/reports/html --inline"
-  }
+"scripts": {
+  "test": "cypress run --reporter mocha-junit-reporter --reporter-options mochaFile=cypress/results/junit/results.xml",
+  "test:ci": "npm run test -- --headless --browser chrome",
+  "test:dev": "cypress open",
+  "test:html": "cypress run --reporter cypress-mochawesome-reporter --reporter-options reportDir=cypress/reports/mochawesome,json=true,html=true",
+  "test:full": "npm run test:ci && npm run test:html && npm run report",
+  "report": "npx mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/output.json && npx marge cypress/reports/mochawesome/output.json --reportDir cypress/reports/html --inline"
+}
 }

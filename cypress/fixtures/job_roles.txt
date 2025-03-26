@@ -10,13 +10,3 @@ Product Owner
 Project Manager
 Senior Java Developer
 Chief Technology Officer (CTO)
-Senior Network Engineer
-Senior Cloud Infrastructure Engineer
-Senior QA Specialist
-Backend Team Lead
-Senior Web/Frontend (Angular) Engineer
-Senior Java Developer
-Sen/Mid Site Reliability Engineer
-Medior Full-Stack (React/Node) Engineer
-Senior Java Engineer
-Dynamics BC/NAV Developer

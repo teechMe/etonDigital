@@ -1,17 +1,6 @@
 const { defineConfig } = require('cypress');
-// const configureMocha = require('cypress-mochawesome-reporter/plugin');
 
 module.exports = defineConfig({
-  reporter: 'cypress-mochawesome-reporter',
-  reporterOptions: {
-    reportDir: 'cypress/reports/mochawesome',
-    charts: true,
-    reportPageTitle: 'Cypress Test Results',
-    embeddedScreenshots: true,
-    inlineAssets: true, 
-    json: true,
-    html: true
-  },
   e2e: {
     env: {
       //Set cookie in LocalStorage in order to avoid cookie consent in every test:
@@ -19,14 +8,18 @@ module.exports = defineConfig({
     },
     chromeWebSecurity: false,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
-      require('cypress-mochawesome-reporter/plugin')(on);
       return config;
-    }
+    },
   },
-  reporter: 'junit',
+  reporter: 'mochawesome',
   reporterOptions: {
-    mochaFile: 'cypress/results/junit/results-[hash].xml',
-    toConsole: true,
-  }
+    reportDir: 'cypress/reports/',
+    overwrite: false,
+    html: false,
+    json: true,
+    embeddedScreenshots: true,
+    inlineAssets: true
+  },
+  screenshotsFolder: 'cypress/reports/assets',
+  videosFolder: 'cypress/reports/videos'
 });

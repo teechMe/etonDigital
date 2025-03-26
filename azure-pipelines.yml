@@ -19,11 +19,12 @@ jobs:
    strategy: 
       maxParallel: 1
    steps:
-    - script: git prune  # Cleans up obsolete references
-      displayName: 'Clean git references'
+    - script: git ls-remote -h https://github.com/teechMe/etonDigital
+      displayName: 'Verify repo access'
     - checkout: etonDigital
       clean: true
       fetchDepth: 1
+      lfs: false  # Disable Git LFS if not needed
     - task: NodeTool@0
       inputs:
         versionSpec: '20.x'

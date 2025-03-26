@@ -27,7 +27,7 @@ jobs:
 
     - script: |
         npm install
-      displayName: 'npm install'
+      displayName: 'Install dependencies'
 
     # Run Cypress with both reporters
     - script: |
@@ -43,11 +43,13 @@ jobs:
       displayName: 'Run Cypress Tests'
       continueOnError: true  # Continue even if tests fail
 
-    - script: |
-        echo "Checking test result files..."
-        ls -R cypress/results
-        find cypress -name "*.xml" -type f
-      displayName: 'Verify Test Results Exist'
+    - powershell: |
+        Write-Host "Generated test files:"
+        Get-ChildItem -Path cypress/results/junit -Recurse -File
+        if (!(Test-Path "cypress/results/junit/*.xml")) {
+          throw "No JUnit XML files found!"
+        }
+      displayName: 'Verify XML Files Exist (Windows)'
     
     - task: PublishTestResults@2
       inputs:

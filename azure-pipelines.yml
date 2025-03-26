@@ -31,9 +31,6 @@ jobs:
 
     # Run Cypress with both reporters
     - script: |
-        mkdir cypress\reports
-        mkdir cypress\reports\junit
-        mkdir cypress\reports\.jsons
         npx cypress run ^
          --reporter cypress-mochawesome-reporter ^
          --reporter-options "reportDir=cypress/reports,json=true,html=true" ^
@@ -43,14 +40,6 @@ jobs:
       displayName: 'Run Cypress Tests'
       continueOnError: true  # Continue even if tests fail
 
-    - powershell: |
-        Write-Host "Test result files:"
-        Get-ChildItem -Path cypress/reports -Recurse
-        if (!(Test-Path "cypress/reports/.jsons/*.json")) {
-        Write-Warning "No JSON files found in .jsons folder!"
-        }
-      displayName: 'Verify Report Files'
-    
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
@@ -60,6 +49,7 @@ jobs:
         testRunTitle: 'Cypress Tests - $(Build.BuildNumber)'
       condition: succeededOrFailed()
       displayName: 'Publish Test Results'
+      enabled: false
 
     - task: PublishBuildArtifacts@1
       inputs:
@@ -67,3 +57,4 @@ jobs:
         artifactName: 'CypressHTMLReport'
       condition: succeededOrFailed()
       displayName: 'Publish HTML Report'
+      enabled: false

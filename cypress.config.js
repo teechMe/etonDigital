@@ -8,6 +8,7 @@ module.exports = defineConfig({
     overwrite: false,
     html: true,
     json: true,
+    xml: true,
     charts: true,
     reportPageTitle: 'Cypress Test Results',
     embeddedScreenshots: true,

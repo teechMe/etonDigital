@@ -20,7 +20,6 @@ jobs:
       maxParallel: 1
    steps:
     - powershell: |
-        Remove-Item -Recurse -Force $(Build.SourcesDirectory)
         git clone https://github.com/teechMe/etonDigital $(Build.SourcesDirectory)
       displayName: 'Force fresh clone (Windows)'
     - script: git prune  # Cleans up obsolete references

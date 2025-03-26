@@ -1,5 +1,5 @@
 const { defineConfig } = require('cypress');
-const createMochaReporter = require('cypress-mochawesome-reporter/plugin');
+const configureMocha = require('cypress-mochawesome-reporter/plugin');
 
 module.exports = defineConfig({
   reporter: 'cypress-mochawesome-reporter',
@@ -22,7 +22,7 @@ module.exports = defineConfig({
     chromeWebSecurity: false,
     setupNodeEvents(on, config) {
       // implement node event listeners here
-      createMochaReporter(on);
+      configureMocha(on);
       return config;
     }
   },

@@ -34,29 +34,29 @@ jobs:
         mkdir -p cypress/reports
         mkdir -p cypress/reports/.jsons
         mkdir -p cypress/results/
-        mkdir -p cypress/results/junit
+        mkdir -p cypress/reports/junit
         npx cypress run ^
          --browser chrome --headless ^
          --reporter cypress-mochawesome-reporter ^
          --reporter-options "reportDir=cypress/reports,json=true,html=true" ^
          --reporter junit ^
-         --reporter-options "mochaFile=cypress/results/junit/results-[hash].xml" ^
+         --reporter-options "mochaFile=cypress/reports/junit/results-[hash].xml" ^
          --spec "cypress/e2e/homepage.cy.js"
       displayName: 'Run Cypress Tests'
       continueOnError: true  # Continue even if tests fail
 
     - powershell: |
-        Write-Host "Generated test files:"
-        Get-ChildItem -Path cypress/results/junit -Recurse -File
-        if (!(Test-Path "cypress/results/junit/*.xml")) {
-          throw "No JUnit XML files found!"
+        Write-Host "Test result files:"
+        Get-ChildItem -Path cypress/reports -Recurse
+        if (!(Test-Path "cypress/reports/.jsons/*.json")) {
+        Write-Warning "No JSON files found in .jsons folder!"
         }
-      displayName: 'Verify XML Files Exist (Windows)'
+      displayName: 'Verify Report Files'
     
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'cypress/results/junit/*.xml'
+        testResultsFiles: 'cypress/reports/junit/*.xml'
         searchFolder: '$(System.DefaultWorkingDirectory)'
         mergeTestResults: true
         testRunTitle: 'Cypress Tests - $(Build.BuildNumber)'

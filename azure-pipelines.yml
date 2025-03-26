@@ -31,6 +31,7 @@ jobs:
 
     # Run Cypress with both reporters
     - script: |
+        mkdir cypress\results  # Create output directory
         npx cypress run ^
          --spec "cypress/e2e/homepage.cy.js"
          --reporter junit ^
@@ -46,7 +47,7 @@ jobs:
         testRunTitle: 'Cypress Test Results'
       condition: succeededOrFailed()
       displayName: 'Publish Test Results'
-      
+
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: 'cypress/reports'

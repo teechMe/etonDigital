@@ -9,7 +9,7 @@ resources:
       type: github
       name: teechMe/etonDigital  # GitHub format: 'owner/repo'
       endpoint: 'GitHubServiceConnection'  # Name of your GitHub service connection
-      ref: 'featureRefactor'  # Default branch to clone
+      ref: refs/heads/featureRefactor  # Default branch to clone
 
 pool:
   name: self-hosted
@@ -26,6 +26,7 @@ jobs:
       clean: true
       fetchDepth: 0
       lfs: false  # Disable Git LFS if not needed
+      persistCredentials: true  # Important for self-hosted agents
     - task: NodeTool@0
       inputs:
         versionSpec: '20.x'

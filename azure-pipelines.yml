@@ -25,11 +25,11 @@ jobs:
         git ls-remote --heads https://github.com/teechMe/etonDigital
         git config --list
       displayName: 'Debug Git Environment'
-    #- script: git ls-remote -h https://github.com/teechMe/etonDigital
-    #  displayName: 'Verify repo access'
+    - script: git ls-remote -h https://github.com/teechMe/etonDigital
+      displayName: 'Verify repo access'
     - checkout: etonDigital
       clean: true
-      fetchDepth: 1
+      fetchDepth: 0
       lfs: false  # Disable Git LFS if not needed
       persistCredentials: true  # Important for self-hosted agents
     - task: NodeTool@0

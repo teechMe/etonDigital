@@ -32,6 +32,7 @@ jobs:
     # Run Cypress with both reporters
     - script: |
         mkdir -p cypress/reports
+        mkdir -p cypress/results/
         mkdir -p cypress/results/junit
         npx cypress run \
          --browser chrome --headless \

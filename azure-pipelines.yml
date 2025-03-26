@@ -25,9 +25,6 @@ jobs:
         versionSpec: '20.x'
       displayName: 'Install Node.js'
 
-    - script: npm ci
-      displayName: 'Install dependencies'
-
     # Run Cypress with both reporters
     - script: npm run test:full
       displayName: 'Run Tests with'

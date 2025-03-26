@@ -31,10 +31,6 @@ jobs:
 
     # Run Cypress with both reporters
     - script: |
-        mkdir -p cypress/reports
-        mkdir -p cypress/reports/.jsons
-        mkdir -p cypress/results/
-        mkdir -p cypress/reports/junit
         npx cypress run ^
          --browser chrome --headless ^
          --reporter cypress-mochawesome-reporter ^

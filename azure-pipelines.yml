@@ -45,8 +45,8 @@ jobs:
         mkdir cypress\results  # Create output directory
         npx cypress run ^
          --spec "cypress/e2e/homepage.cy.js"
-         --reporter mocha-junit-reporter ^
-         --reporter-options "mochaFile=cypress/results/results.xml"
+         --reporter junit ^
+         --reporter-options "mochaFile=cypress/results/output.xml"
       displayName: 'Run Cypress Tests'
       continueOnError: true  # Continue even if tests fail
 

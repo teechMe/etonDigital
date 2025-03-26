@@ -19,9 +19,6 @@ jobs:
    strategy: 
       maxParallel: 1
    steps:
-    - powershell: |
-        git clone https://github.com/teechMe/etonDigital $(Build.SourcesDirectory)
-      displayName: 'Force fresh clone (Windows)'
     - script: git prune  # Cleans up obsolete references
       displayName: 'Clean git references'
     - checkout: etonDigital

@@ -45,7 +45,7 @@ jobs:
         testRunTitle: 'Cypress Tests - $(Build.BuildNumber)'
       condition: succeededOrFailed()
       displayName: 'Publish Test Results'
-      enabled: true
+      enabled: false
 
     - task: PublishBuildArtifacts@1
       inputs:
@@ -53,4 +53,4 @@ jobs:
         artifactName: 'CypressHTMLReport'
       condition: succeededOrFailed()
       displayName: 'Publish HTML Report'
-      enabled: false
+      enabled: true

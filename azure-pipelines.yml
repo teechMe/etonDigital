@@ -25,6 +25,14 @@ jobs:
         versionSpec: '20.x'
       displayName: 'Install Node.js'
 
+    # Install dependencies including Cypress
+    - script: npm install
+      displayName: 'Install dependencies'
+
+    # Verify Cypress is installed
+    - script: npx cypress verify
+      displayName: 'Verify Cypress Installation'
+      
     # Run Cypress with both reporters
     - script: npm run test:full
       displayName: 'Run Tests with'

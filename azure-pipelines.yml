@@ -9,7 +9,7 @@ resources:
       type: github
       name: teechMe/etonDigital  # GitHub format: 'owner/repo'
       endpoint: 'GitHubServiceConnection'  # Name of your GitHub service connection
-      ref: refs/heads/featureRefactor  # Default branch to clone
+      ref: refs/heads/master  # Default branch to clone
 
 pool:
   name: self-hosted

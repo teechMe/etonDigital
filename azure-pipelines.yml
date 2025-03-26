@@ -23,7 +23,7 @@ jobs:
       displayName: 'Verify repo access'
     - checkout: etonDigital
       clean: true
-      fetchDepth: 1
+      fetchDepth: 0
       lfs: false  # Disable Git LFS if not needed
     - task: NodeTool@0
       inputs:

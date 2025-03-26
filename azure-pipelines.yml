@@ -19,10 +19,10 @@ jobs:
    strategy: 
       maxParallel: 1
    steps:
-    - script: |
-        rm -rf $(Build.SourcesDirectory)
+    - powershell: |
+        Remove-Item -Recurse -Force $(Build.SourcesDirectory)
         git clone https://github.com/teechMe/etonDigital $(Build.SourcesDirectory)
-      displayName: 'Force fresh clone'
+      displayName: 'Force fresh clone (Windows)'
     - script: git prune  # Cleans up obsolete references
       displayName: 'Clean git references'
     - checkout: etonDigital

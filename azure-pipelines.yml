@@ -35,7 +35,7 @@ jobs:
         mkdir cypress\reports\junit
         mkdir cypress\reports\.jsons
         npx cypress run ^
-         --browser chrome --headless ^
+ #        --browser chrome --headless ^
          --reporter cypress-mochawesome-reporter ^
          --reporter-options "reportDir=cypress/reports,json=true,html=true" ^
          --reporter junit ^

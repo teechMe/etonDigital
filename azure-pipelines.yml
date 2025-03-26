@@ -41,12 +41,7 @@ jobs:
 
 
     # Run Cypress with both reporters
-    - script: |
-        mkdir cypress\results  # Create output directory
-        npx cypress run ^
-         --spec "cypress/e2e/homepage.cy.js"
-         --reporter mocha-junit-reporter ^
-         --reporter-options "mochaFile=cypress/results/junit/results.xml"
+    - script: npm run test:full
       displayName: 'Run Cypress Tests'
       continueOnError: true  # Continue even if tests fail
 

@@ -32,8 +32,6 @@ jobs:
     # Run Cypress with both reporters
     - script: |
         npx cypress run ^
-         --reporter cypress-mochawesome-reporter ^
-         --reporter-options "reportDir=cypress/reports,json=true,html=true" ^
          --reporter junit ^
          --reporter-options "mochaFile=cypress/reports/junit/results-[hash].xml" ^
          --spec "cypress/e2e/homepage.cy.js"

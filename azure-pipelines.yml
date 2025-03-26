@@ -20,11 +20,17 @@ jobs:
    strategy: 
       maxParallel: 1
    steps:
-    - checkout: etonDigital
-      clean: true
-      fetchDepth: 1
-      persistCredentials: true  # Important for self-hosted agents
-      submodules: false
+ #   - checkout: etonDigital
+ #     clean: true
+ #     fetchDepth: 1
+ #     persistCredentials: true  # Important for self-hosted agents
+ #     submodules: false
+    - script: |
+        rm -rf $(Build.SourcesDirectory)
+        git clone --depth 1 --branch featureRefactor https://github.com/teechMe/etonDigital $(Build.SourcesDirectory)
+      displayName: 'Manual git checkout'
+      env:
+        GIT_TERMINAL_PROMPT: 0
     - task: NodeTool@0
       inputs:
         versionSpec: '20.x'

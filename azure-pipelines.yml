@@ -20,11 +20,6 @@ jobs:
    strategy: 
       maxParallel: 1
    steps:
- #   - checkout: etonDigital
- #     clean: true
- #     fetchDepth: 1
- #     persistCredentials: true  # Important for self-hosted agents
- #     submodules: false
     - task: NodeTool@0
       inputs:
         versionSpec: '20.x'
@@ -35,5 +30,14 @@ jobs:
       displayName: 'npm install'
 
     - script: |
-        npx cypress run --spec cypress\e2e\*.cy.js
-      displayName: 'run tests'
+        npx cypress run --spec cypress\e2e\*.cy.js --reporter junit --reporter-options "mochaFile=cypress/results/results-[hash].xml"
+      displayName: 'Run Cypress Tests with JUnit Reporting'
+
+    - task: PublishTestResults@2
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: 'cypress/results/*.xml'
+        mergeTestResults: true
+        testRunTitle: 'Cypress Tests'
+      condition: succeededOrFailed()
+      displayName: 'Publish Test Results'

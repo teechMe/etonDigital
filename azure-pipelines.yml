@@ -3,6 +3,14 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
+resources:
+  repositories:
+    - repository: etonDigital  # Your reference name for this repo
+      type: github
+      name: teechMe/etonDigital  # GitHub format: 'owner/repo'
+      endpoint: 'GitHubServiceConnection'  # Name of your GitHub service connection
+      ref: 'master'  # Default branch to clone
+
 trigger:
 - master
 

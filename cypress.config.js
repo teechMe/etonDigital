@@ -1,6 +1,11 @@
 const { defineConfig } = require("cypress");
 
-module.exports = defineConfig({
+module.exports = defineConfig({reporter: 'cypress-mochawesome-reporter',
+  reporterOptions: {
+    charts: true,
+    reportPageTitle: 'Cypress Test Results',
+    embeddedScreenshots: true,
+  },
   e2e: {
     env: {
       //Set cookie in LocalStorage in order to avoid cookie consent in every test:
@@ -9,6 +14,7 @@ module.exports = defineConfig({
     chromeWebSecurity: false,
     setupNodeEvents(on, config) {
       // implement node event listeners here
+      require('cypress-mochawesome-reporter/plugin')(on)
     },
   },
 });

@@ -41,3 +41,9 @@ jobs:
         testRunTitle: 'Cypress Tests'
       condition: succeededOrFailed()
       displayName: 'Publish Test Results'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathtoPublish: 'cypress/reports'
+        artifactName: 'CypressHTMLReport'
+      condition: succeededOrFailed()

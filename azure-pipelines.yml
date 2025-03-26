@@ -29,22 +29,44 @@ jobs:
         npm install
       displayName: 'Install dependencies'
 
+    # Install required reporters
+    - script: npm install --save-dev mocha mocha-junit-reporter
+      displayName: 'Install Reporters'
+
+    # Debug: Show directory structure before tests
+    - powershell: |
+        Write-Host "Directory structure before test run:"
+        Get-ChildItem -Recurse
+      displayName: 'Pre-Run Directory Check'
+
+
     # Run Cypress with both reporters
     - script: |
         mkdir cypress\results  # Create output directory
         npx cypress run ^
          --spec "cypress/e2e/homepage.cy.js"
-         --reporter junit ^
-         --reporter-options "mochaFile=cypress/results/results-[hash].xml"
+         --reporter mocha-junit-reporter ^
+         --reporter-options "mochaFile=cypress/results/results.xml"
       displayName: 'Run Cypress Tests'
       continueOnError: true  # Continue even if tests fail
+
+
+    # Debug: Verify files were created
+    - powershell: |
+        Write-Host "Generated files:"
+        Get-ChildItem -Path cypress\results -Recurse -File
+        if (!(Test-Path "cypress\results\*.xml")) {
+          Write-Error "No XML files found in results directory!"
+        }
+      displayName: 'Verify XML Files Exist'
+
 
     # Publish to Test Plans > Runs
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: 'cypress\results\*.xml'
-        testRunTitle: 'Cypress Test Results'
+        testRunTitle: 'Cypress Test Results - $(Build.BuildNumber)'
       condition: succeededOrFailed()
       displayName: 'Publish Test Results'
 

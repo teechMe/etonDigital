@@ -1,10 +1,17 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require('cypress');
+const createMochaReporter = require('cypress-mochawesome-reporter/plugin');
 
-module.exports = defineConfig({reporter: 'cypress-mochawesome-reporter',
+module.exports = defineConfig({
+  reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
+    reportDir: 'cypress/reports',
+    overwrite: false,
+    html: true,
+    json: true,
     charts: true,
     reportPageTitle: 'Cypress Test Results',
     embeddedScreenshots: true,
+    inlineAssets: true, 
   },
   e2e: {
     env: {
@@ -14,7 +21,9 @@ module.exports = defineConfig({reporter: 'cypress-mochawesome-reporter',
     chromeWebSecurity: false,
     setupNodeEvents(on, config) {
       // implement node event listeners here
-      require('cypress-mochawesome-reporter/plugin')(on)
-    },
+      createMochaReporter(on);
+      return config;
+    }
   },
+  video: false
 });

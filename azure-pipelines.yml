@@ -33,20 +33,20 @@ jobs:
     - script: |
         npx cypress run ^
          --spec "cypress/e2e/homepage.cy.js"
+         --reporter junit ^
+         --reporter-options "mochaFile=cypress/results/results-[hash].xml"
       displayName: 'Run Cypress Tests'
       continueOnError: true  # Continue even if tests fail
 
+    # Publish to Test Plans > Runs
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'cypress/reports/junit/*.xml'
-        searchFolder: '$(System.DefaultWorkingDirectory)'
-        mergeTestResults: true
-        testRunTitle: 'Cypress Tests - $(Build.BuildNumber)'
+        testResultsFiles: 'cypress\results\*.xml'
+        testRunTitle: 'Cypress Test Results'
       condition: succeededOrFailed()
       displayName: 'Publish Test Results'
-      enabled: false
-
+      
     - task: PublishBuildArtifacts@1
       inputs:
         pathtoPublish: 'cypress/reports'

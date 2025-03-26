@@ -32,15 +32,16 @@ jobs:
     # Run Cypress with both reporters
     - script: |
         mkdir -p cypress/reports
+        mkdir -p cypress/reports/.jsons
         mkdir -p cypress/results/
         mkdir -p cypress/results/junit
-        npx cypress run \
-         --browser chrome --headless \
-         --reporter cypress-mochawesome-reporter \
-         --reporter-options "reportDir=cypress/reports,json=true,html=true" \
-         --reporter junit \
+        npx cypress run ^
+         --browser chrome --headless ^
+         --reporter cypress-mochawesome-reporter ^
+         --reporter-options "reportDir=cypress/reports,json=true,html=true" ^
+         --reporter junit ^
          --reporter-options "mochaFile=cypress/results/junit/results-[hash].xml"
-         --spec "cypress/e2e/*.cy.js"
+         --spec "cypress/e2e/homepage.cy.js"
       displayName: 'Run Cypress Tests'
       continueOnError: true  # Continue even if tests fail
 

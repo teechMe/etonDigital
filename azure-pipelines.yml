@@ -20,18 +20,11 @@ jobs:
    strategy: 
       maxParallel: 1
    steps:
-    - script: |
-        echo "##vso[task.debug]Agent.GitVersion=$(git --version)"
-        git ls-remote --heads https://github.com/teechMe/etonDigital
-        git config --list
-      displayName: 'Debug Git Environment'
-    - script: git ls-remote -h https://github.com/teechMe/etonDigital
-      displayName: 'Verify repo access'
     - checkout: etonDigital
       clean: true
-      fetchDepth: 0
-      lfs: false  # Disable Git LFS if not needed
+      fetchDepth: 1
       persistCredentials: true  # Important for self-hosted agents
+      submodules: false
     - task: NodeTool@0
       inputs:
         versionSpec: '20.x'

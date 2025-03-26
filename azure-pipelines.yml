@@ -3,6 +3,13 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
+resources:
+  repositories:
+  - repository: self
+    type: git
+    name: teechMe/etonDigital  # Format: 'Project/Repo'
+    ref: master  # Your branch name
+
 trigger:
 - master
 

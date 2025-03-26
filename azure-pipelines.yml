@@ -31,6 +31,7 @@ jobs:
       displayName: 'Manual git checkout'
       env:
         GIT_TERMINAL_PROMPT: 0
+
     - task: NodeTool@0
       inputs:
         versionSpec: '20.x'

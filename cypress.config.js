@@ -10,8 +10,10 @@ module.exports = defineConfig({
       return config;
     },
   },
-  reporter: 'mocha-junit-reporter',
+  reporter: 'junit',
   reporterOptions: {
-    mochaFile: 'cypress/results/results.xml'
+    mochaFile: 'cypress/results/results-[hash].xml',
+    includePending: true,
+    outputs: true,
   }
 });

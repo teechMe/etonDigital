@@ -24,14 +24,8 @@ jobs:
     - script: npx cypress verify
       displayName: 'Verify Cypress Installation'
 
-    - script: |
-        mkdir cypress\results
-        npx cypress run ^
-          --reporter mocha-junit-reporter ^
-          --reporter-options "mochaFile=cypress/results/results-[hash].xml" ^
-          --spec "cypress/e2e/*.cy.js"
-      displayName: 'Run Cypress Tests'
-      continueOnError: true
+    - script: npm run test:ci
+      displayName: 'Run tests and merge reports'
 
     - task: PublishTestResults@2
       inputs:

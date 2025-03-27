@@ -28,7 +28,7 @@ jobs:
         mkdir cypress\results
         npx cypress run ^
           --reporter mocha-junit-reporter ^
-          --reporter-options "mochaFile=cypress/results/results.xml" ^
+          --reporter-options "mochaFile=cypress/results/results-[hash].xml" ^
           --spec "cypress/e2e/*.cy.js"
       displayName: 'Run Cypress Tests'
       continueOnError: true

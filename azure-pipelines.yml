@@ -21,16 +21,13 @@ jobs:
     - script: npm install
       displayName: 'Install dependencies'
 
-    - script: npx cypress verify
-      displayName: 'Verify Cypress Installation'
-
     - script: npm run test:ci
       displayName: 'Run tests and merge reports'
 
     - task: PublishTestResults@2
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'cypress\results\*.xml'
+        testResultsFiles: 'cypress\results\merged-results.xml'
         testRunTitle: 'Cypress Tests - $(Build.BuildNumber)'
       condition: succeededOrFailed()
       displayName: 'Publish Test Results'

@@ -31,3 +31,9 @@ jobs:
         testRunTitle: 'Cypress Tests - $(Build.BuildNumber)'
       condition: succeededOrFailed()
       displayName: 'Publish Test Results'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Job Roles'
+      inputs:
+        pathtoPublish: 'cypress/fixtures/job_roles.txt'
+        artifactName: 'JobRoles'
